@@ -1,8 +1,14 @@
+package com.pengjinwei;
+
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * @author Peng Jinwei
+ * @since 1.0
+ */
 
-public class OperatingSystem {
+public class Juststart {
     private ArrayList<Integer> imgByteToWrite = new ArrayList<Integer>();
     private ArrayList<String> readKernelFromFile(String fileName) {
         File file = new File(fileName);
@@ -21,8 +27,6 @@ public class OperatingSystem {
             e.printStackTrace();
         }
 
-//        imgByteToWrite.add(0x55);
-//        imgByteToWrite.add(0xaa);
         int leftBytes = 512 - imgByteToWrite.size();
         for (int i = 0; i < leftBytes; i++) {
             imgByteToWrite.add(0x00);
@@ -31,7 +35,7 @@ public class OperatingSystem {
         return sourceFileInfo;
     }
 
-    public OperatingSystem(String s) {
+    public Juststart(String s) {
 
         ArrayList<String> sourceFileInfo = readKernelFromFile(s);
         makeFllopy(sourceFileInfo.get(0), sourceFileInfo.get(1));
@@ -42,9 +46,9 @@ public class OperatingSystem {
             DataOutputStream out =
                     new DataOutputStream(
                             new FileOutputStream(targetFilePath
-                    + File.separator
-                    + targetFileName
-                    + ".img"));
+                                    + File.separator
+                                    + targetFileName
+                                    + ".img"));
             for (int i = 0; i < imgByteToWrite.size(); i++) {
                 out.writeByte(imgByteToWrite.get(i).byteValue());
             }
@@ -59,6 +63,6 @@ public class OperatingSystem {
         if (args.length == 0) {
             System.err.println("You should give a file name!");
         }
-        OperatingSystem op = new OperatingSystem(args[0]);
+        Juststart op = new Juststart(args[0]);
     }
 }
